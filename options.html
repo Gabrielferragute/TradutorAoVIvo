@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Opções — Legenda PT-BR ao vivo</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --danger: #ef4444;
+      --danger-hover: #dc2626;
+      --success: #10b981;
+      --amber: #f59e0b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 {
+      font-size: 20px;
+      font-weight: 600;
+    }
+    .badge {
+      font-size: 11px;
+      background: #3b82f620;
+      color: #60a5fa;
+      border: 1px solid #3b82f640;
+      padding: 2px 8px;
+      border-radius: 9999px;
+      font-weight: 500;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+    .hint {
+      font-size: 12px;
+      color: #64748b;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="number"],
+    select {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus {
+      border-color: var(--primary);
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    button {
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 8px 16px;
+      border: none;
+      transition: background-color 0.15s, opacity 0.15s;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+    .btn-primary:hover { background: var(--primary-hover); }
+    .btn-secondary {
+      background: #334155;
+      color: #f1f5f9;
+    }
+    .btn-secondary:hover { background: #475569; }
+    .btn-danger {
+      background: #ef444420;
+      color: #f87171;
+      border: 1px solid #ef444440;
+    }
+    .btn-danger:hover { background: #ef444435; }
+    .key-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: #0f172a;
+      border: 1px solid var(--border);
+      width: fit-content;
+    }
+    .key-status.saved {
+      color: var(--success);
+      border-color: #05966940;
+    }
+    .key-status.empty {
+      color: var(--amber);
+      border-color: #d9770640;
+    }
+    .preview-box {
+      margin-top: 6px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.75);
+      color: #fff;
+      text-align: center;
+      font-family: system-ui, -apple-system, sans-serif;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.9);
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .status-msg {
+      padding: 10px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      display: none;
+    }
+    .status-msg.error {
+      background: #ef444420;
+      color: #fca5a5;
+      border: 1px solid #ef444450;
+      display: block;
+    }
+    .status-msg.success {
+      background: #10b98120;
+      color: #6ee7b7;
+      border: 1px solid #10b98150;
+      display: block;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Legenda PT-BR ao vivo</h1>
+      <span class="badge">Opções</span>
+    </header>
+
+    <div id="statusMessage" class="status-msg"></div>
+
+    <!-- Seção 1: Chave da API -->
+    <section class="card">
+      <h2 class="card-title">Chave da API Google Gemini</h2>
+      <div id="keyStatusContainer">
+        <span id="keyStatusText" class="key-status empty">Nenhuma chave configurada</span>
+      </div>
+      <div class="field">
+        <label for="apiKeyInput">Chave da API (Google AI Studio):</label>
+        <input type="password" id="apiKeyInput" placeholder="AIzaSy..." autocomplete="off">
+        <span class="hint">Obtenha sua chave gratuita em <a href="https://aistudio.google.com/apikey" target="_blank" style="color: #60a5fa; text-decoration: underline;">aistudio.google.com/apikey</a> (também aceita chaves OpenAI).</span>
+      </div>
+      <div class="btn-row">
+        <button type="button" id="saveKeyBtn" class="btn-primary">Salvar Chave</button>
+        <button type="button" id="testKeyBtn" class="btn-secondary">Testar Conexão</button>
+        <button type="button" id="removeKeyBtn" class="btn-danger">Remover Chave</button>
+      </div>
+    </section>
+
+    <!-- Seção 2: Exibição e Idioma -->
+    <section class="card">
+      <h2 class="card-title">Legenda e Tradução</h2>
+      <div class="field">
+        <label for="targetLangSelect">Idioma de destino:</label>
+        <select id="targetLangSelect">
+          <option value="pt-BR">Português do Brasil (padrão)</option>
+          <option value="pt-PT">Português de Portugal</option>
+          <option value="es">Espanhol</option>
+          <option value="fr">Francês</option>
+          <option value="de">Alemão</option>
+          <option value="it">Italiano</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="fontSizeInput">Tamanho da fonte (px):</label>
+        <input type="number" id="fontSizeInput" min="12" max="48" step="1" value="20">
+        <span class="hint">Altera a legenda imediatamente na aba ativa.</span>
+      </div>
+
+      <div class="field">
+        <label>Pré-visualização da legenda:</label>
+        <div id="fontPreview" class="preview-box">
+          Envie o job JCL e verifique o dataset no z/OS.
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção 3: Corte por Pausa (VAD) -->
+    <section class="card">
+      <h2 class="card-title">Corte de Áudio por Pausa (VAD)</h2>
+      <div class="grid-2">
+        <div class="field">
+          <label for="silenceThresholdInput">Limiar de silêncio (RMS):</label>
+          <input type="number" id="silenceThresholdInput" min="0.001" max="0.2" step="0.001" value="0.003">
+          <span class="hint">Valores menores = mais sensível a sons baixos.</span>
+        </div>
+        <div class="field">
+          <label for="pauseMsInput">Pausa mínima (ms):</label>
+          <input type="number" id="pauseMsInput" min="150" max="2000" step="50" value="300">
+          <span class="hint">Tempo de silêncio para cortar o trecho (300 ms).</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="maxChunkMsInput">Duração máxima do trecho (ms):</label>
+        <input type="number" id="maxChunkMsInput" min="2500" max="15000" step="500" value="5000">
+        <span class="hint">Corte forçado caso o locutor fale sem pausas (5000 ms).</span>
+      </div>
+
+      <div class="btn-row">
+        <button type="button" id="saveSettingsBtn" class="btn-primary">Salvar Configurações</button>
+        <button type="button" id="resetDefaultsBtn" class="btn-secondary">Restaurar Padrões</button>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="options.js"></script>
+</body>
+</html>

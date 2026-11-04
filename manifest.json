@@ -1,0 +1,43 @@
+{
+  "manifest_version": 3,
+  "name": "Legenda PT-BR ao vivo",
+  "version": "0.1.0",
+  "description": "Captura o áudio da aba, transcreve o inglês e exibe legenda em português do Brasil sobre o vídeo.",
+  "minimum_chrome_version": "116",
+  "permissions": ["tabCapture", "offscreen", "activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*",
+    "https://api.openai.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js",
+    "type": "module"
+  },
+  "action": {
+    "default_title": "Legenda PT-BR: desligada (clique para ligar)",
+    "default_icon": {
+      "16": "icons/off-16.png",
+      "32": "icons/off-32.png",
+      "48": "icons/off-48.png",
+      "128": "icons/off-128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/on-16.png",
+    "32": "icons/on-32.png",
+    "48": "icons/on-48.png",
+    "128": "icons/on-128.png"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "commands": {
+    "toggle-overlay": {
+      "suggested_key": {
+        "default": "Alt+Shift+H"
+      },
+      "description": "Ocultar ou exibir a legenda na tela"
+    }
+  }
+}
